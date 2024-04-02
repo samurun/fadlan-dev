@@ -13,11 +13,12 @@ type Props = {
 };
 
 const PostItem = ({ slug, title, description, date, tags }: Props) => {
+  console.log(slug);
   return (
     <article className='p-4 border rounded-md'>
       <div>
         <h2 className='text-2xl font-bold'>
-          <Link href={slug}>{title}</Link>
+          <Link href={'/' + slug}>{title}</Link>
         </h2>
       </div>
       <div className='flex gap-2 py-1'>
@@ -36,7 +37,10 @@ const PostItem = ({ slug, title, description, date, tags }: Props) => {
             <time dateTime={date}>{formatDate(date)}</time>
           </dd>
         </dl>
-        <Link href={slug} className={cn(buttonVariants({ variant: 'link' }))}>
+        <Link
+          href={'/' + slug}
+          className={cn(buttonVariants({ variant: 'link' }))}
+        >
           Read more →
         </Link>
       </div>
