@@ -8,7 +8,8 @@ import {
 } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import ThemeToggle from './theme-toggle';
-import { Button } from './ui/button';
+import { buttonVariants } from './ui/button';
+import { cn } from '@/lib/utils';
 
 type Props = {};
 
@@ -20,25 +21,29 @@ const Header = (props: Props) => {
           Fadlan.dev
         </Link>
         <div className='flex items-center'>
-          <Link href='/'>
-            <Button variant='ghost' size='icon'>
-              <HomeIcon />
-            </Button>
+          <Link
+            href='/'
+            className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+          >
+            <HomeIcon />
           </Link>
-          <Link href='/projects'>
-            <Button variant='ghost' size='icon'>
-              <RocketIcon />
-            </Button>
+          <Link
+            href='/projects'
+            className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+          >
+            <RocketIcon />
           </Link>
-          <Link href='/blog'>
-            <Button variant='ghost' size='icon'>
-              <ReaderIcon />
-            </Button>
+          <Link
+            href='/blog'
+            className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+          >
+            <ReaderIcon />
           </Link>
-          <Link href='/about'>
-            <Button variant='ghost' size='icon'>
-              <PersonIcon />
-            </Button>
+          <Link
+            href='/about'
+            className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+          >
+            <PersonIcon />
           </Link>
           <ThemeToggle />
         </div>
