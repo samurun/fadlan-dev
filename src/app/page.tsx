@@ -4,10 +4,6 @@ import PostItem from '@/components/post-item';
 import ProjectsSection from '@/components/projects-section';
 import { sortPosts } from '@/lib/utils';
 
-export const metadata = {
-  title: 'Fadlan Jehteerokee',
-};
-
 export default function Home() {
   const lastePosts = sortPosts(posts.filter((post) => post.published)).slice(
     0,
