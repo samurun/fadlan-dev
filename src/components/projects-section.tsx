@@ -25,7 +25,7 @@ const ProjectsSection = (props: Props) => {
               name={project.name}
               image={project.image}
               description={project.desc}
-              stacks={project.tech}
+              stacks={project.stacks}
             />
           </li>
         ))}
