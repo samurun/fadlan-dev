@@ -7,3 +7,12 @@ export interface IBlog {
   content: string;
   id: string;
 }
+
+export interface IProject {
+  name: string;
+  image: string;
+  description: string;
+  stacks: string[];
+  git_url?: string;
+  url: string;
+}

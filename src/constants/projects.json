@@ -1,9 +1,23 @@
 [
   {
+    "name": "Net Zero Man",
+    "image": "/images/net-zero-man.png",
+    "desc": "ผู้เชี่ยวชาญเส้นทางมัลดีฟส์ บริการให้คำปรึกษาและแนะนำรีสอร์มัลดีฟที่เหมาะกับคุณ",
+    "stacks": [
+      "react",
+      "typescript",
+      "vite",
+      "zod",
+      "chillpay payment gateway"
+    ],
+    "git_url": "",
+    "url": "https://thainetzeroman.com"
+  },
+  {
     "name": "Likemaldives",
     "image": "/images/likemaldives.png",
     "desc": "ผู้เชี่ยวชาญเส้นทางมัลดีฟส์ บริการให้คำปรึกษาและแนะนำรีสอร์มัลดีฟที่เหมาะกับคุณ",
-    "tech": ["Next.js", "JavaScript", "SCSS", "Docker"],
+    "stacks": ["Next.js", "JavaScript", "SCSS", "Docker"],
     "git_url": "",
     "url": "https://likemaldives.com"
   },
@@ -11,7 +25,7 @@
     "name": "The Triple Innovation",
     "image": "/images/triple-i.in.png",
     "desc": "บริการพัฒนาซอฟต์แวร์ที่ตอบสนองต่อการเปลี่ยนแปลงในโลกดิจิตอล เพื่อยกระดับคุณภาพสินค้า (Products) และการบริการ (Service) ให้ดีขึ้นกว่าเดิม Chatbot Development , Software Development and Digital Marketing",
-    "tech": ["Nuxtjs", "JavaScript", "Firebase"],
+    "stacks": ["Nuxtjs", "JavaScript", "Firebase"],
     "git_url": "",
     "url": "https://triple-i.in/"
   },
@@ -19,7 +33,7 @@
     "name": "Kathi Studio",
     "image": "/images/kathistudio.co.th.png",
     "desc": "รับพัฒนาแอพพลิเคชั่น ระบบบริหารจัดการ ระบบฐานข้อมูล ตามความต้องการของ ลูกค้าอย่างมืออาชีพ คิดจะสร้างแอพพลิเคชั่น นึกถึงกะทิ สตูดิโอ",
-    "tech": ["Next.js", "JavaScript", "Styled-components"],
+    "stacks": ["Next.js", "JavaScript", "Styled-components"],
     "git_url": "",
     "url": "https://kathistudio.co.th/"
   }

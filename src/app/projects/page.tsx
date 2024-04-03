@@ -23,8 +23,8 @@ const page = async (props: Props) => {
               url={project.url}
               name={project.name}
               image={project.image}
-              description={project.desc}
-              stacks={project.tech}
+              description={project.description}
+              stacks={project.stacks}
             />
           </li>
         ))}
