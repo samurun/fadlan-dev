@@ -68,9 +68,9 @@ const page = async ({ params }: Props) => {
   }
   return (
     <article className='pt-16 prose max-w-3xl dark:prose-invert'>
-      {/* <h1 className='text-3xl font-black mb-0'>{post.title}</h1> */}
-      <h1 className='text-3xl font-black mb-0'>{post.description}</h1>
-      <div className='py-2 text-muted-foreground'>
+      <h1 className='text-3xl font-black mb-0'>{post.title}</h1>
+      <div className='py-2 text-muted-foreground flex items-center gap-2'>
+        <CalendarIcon />
         <time dateTime={post.date}>{formatDate(post.date)}</time>
       </div>
       <div className='flex gap-2 mb-2'>
@@ -78,9 +78,9 @@ const page = async ({ params }: Props) => {
           <Tag tag={tag} key={tag} />
         ))}
       </div>
-      {/* {post.description ? (
+      {post.description ? (
         <p className='text-xl text-muted-foreground mt-0'>{post.description}</p>
-      ) : null} */}
+      ) : null}
       <hr className='my-4' />
       <MDXContent code={post.body} />
     </article>
