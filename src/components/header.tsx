@@ -16,7 +16,7 @@ type Props = {};
 
 const Header = (props: Props) => {
   return (
-    <header className='fixed top-0 left-0 right-0 bg-background z-20'>
+    <header className='fixed top-0 left-0 right-0 bg-background z-20 border-b'>
       <div className='container h-16 flex items-center justify-between'>
         <Link
           href='/'

@@ -21,6 +21,7 @@ export default function Home() {
               <PostItem
                 slug={post.slug}
                 title={post.title}
+                description={post.description}
                 date={post.date}
                 tags={post.tags}
               />
