@@ -68,7 +68,7 @@ const page = async ({ params }: Props) => {
   }
   return (
     <article className='pt-16 prose max-w-3xl dark:prose-invert'>
-      <h1 className='text-3xl font-black mb-0'>{post.title}</h1>
+      <h1 className='text-4xl font-black mb-0'>{post.title}</h1>
       <div className='py-2 text-muted-foreground flex items-center gap-2'>
         <CalendarIcon />
         <time dateTime={post.date}>{formatDate(post.date)}</time>
