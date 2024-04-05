@@ -6,6 +6,7 @@ import { Metadata } from 'next';
 import { Tag } from '@/components/tag';
 import { formatDate } from '@/lib/utils';
 import { CalendarIcon } from '@radix-ui/react-icons';
+import Comments from '@/components/comments';
 
 type Props = {
   params: { slug: string[] };
@@ -67,23 +68,30 @@ const page = async ({ params }: Props) => {
     notFound();
   }
   return (
-    <article className='pt-16 prose max-w-3xl dark:prose-invert'>
-      <h1 className='text-4xl font-black mb-0'>{post.title}</h1>
-      <div className='py-2 text-muted-foreground flex items-center gap-2'>
-        <CalendarIcon />
-        <time dateTime={post.date}>{formatDate(post.date)}</time>
+    <>
+      <article className='pt-16 prose max-w-3xl dark:prose-invert'>
+        <h1 className='text-4xl font-black mb-0'>{post.title}</h1>
+        <div className='py-2 text-muted-foreground flex items-center gap-2'>
+          <CalendarIcon />
+          <time dateTime={post.date}>{formatDate(post.date)}</time>
+        </div>
+        <div className='flex gap-2 mb-2'>
+          {post.tags?.map((tag) => (
+            <Tag tag={tag} key={tag} />
+          ))}
+        </div>
+        {post.description ? (
+          <p className='text-xl text-muted-foreground mt-0'>
+            {post.description}
+          </p>
+        ) : null}
+        <hr className='my-4' />
+        <MDXContent code={post.body} />
+      </article>
+      <div className='mt-14'>
+        <Comments />
       </div>
-      <div className='flex gap-2 mb-2'>
-        {post.tags?.map((tag) => (
-          <Tag tag={tag} key={tag} />
-        ))}
-      </div>
-      {post.description ? (
-        <p className='text-xl text-muted-foreground mt-0'>{post.description}</p>
-      ) : null}
-      <hr className='my-4' />
-      <MDXContent code={post.body} />
-    </article>
+    </>
   );
 };
 
