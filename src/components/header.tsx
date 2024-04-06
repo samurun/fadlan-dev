@@ -23,7 +23,7 @@ const Header = (props: Props) => {
           className='text-lg font-bold flex items-center space-x-2'
         >
           <Icons.logo className='h-6 w-6' />
-          <span className='font-bold'>Fadlan.dev</span>
+          <span className='font-bold'>Fadlan blog</span>
         </Link>
         <div className='flex items-center'>
           <Link
