@@ -6,15 +6,13 @@ interface SpotifyAccessTokenResponse {
 }
 
 const getAccessToken = async (): Promise<SpotifyAccessTokenResponse> => {
-  const refresh_token: string | undefined =
-    process.env.SPOTIFY_REFRESH_TOKEN;
+  const refresh_token: string | undefined = process.env.SPOTIFY_REFRESH_TOKEN;
 
   if (!refresh_token) {
     throw new Error('Refresh token not provided');
   }
 
-  const clientId: string | undefined =
-    process.env.SPOTIFY_CLIENT_ID;
+  const clientId: string | undefined = process.env.SPOTIFY_CLIENT_ID;
   const clientSecret: string | undefined = process.env.SPOTIFY_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
@@ -71,5 +69,6 @@ export const currentlyPlayingSong = async () => {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
+    cache: 'no-cache',
   });
 };
