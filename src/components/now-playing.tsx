@@ -14,7 +14,7 @@ const NowPlaying = (props: NowPlayingProps) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/now-playing');
+        const response = await fetch('/api/now-playing', { cache: 'no-cache' });
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
