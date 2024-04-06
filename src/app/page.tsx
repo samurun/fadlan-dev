@@ -4,6 +4,39 @@ import PostItem from '@/components/post-item';
 import ProjectsSection from '@/components/projects-section';
 import { sortPosts } from '@/lib/utils';
 
+export async function generateMetadata() {
+  const ogSearchParams = new URLSearchParams();
+
+  const title = 'Fadlan';
+  const description =
+    'Welcome to my blog template. Built using tailwind, shadcn, velite and Nextjs 14.';
+  return {
+    title: title,
+    description: description,
+    authors: { name: title },
+    openGraph: {
+      title: title,
+      description: description,
+      type: 'article',
+      url: 'https://fadlan-dev.vercel.app/',
+      images: [
+        {
+          url: `/api/og?${ogSearchParams.toString()}`,
+          width: 1200,
+          height: 630,
+          alt: 'fadlan-dev',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: description,
+      images: [`/api/og?${ogSearchParams.toString()}`],
+    },
+  };
+}
+
 export default function Home() {
   const lastePosts = sortPosts(posts.filter((post) => post.published)).slice(
     0,

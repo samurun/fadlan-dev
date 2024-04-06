@@ -12,13 +12,13 @@ export async function GET(req: NextRequest) {
     const fontBold = await interBold;
 
     const { searchParams } = req.nextUrl;
-    const title = searchParams.get('title');
+    const title = searchParams.get('title') || '';
 
-    if (!title) {
-      return new Response('No titie provided', {
-        status: 500,
-      });
-    }
+    // if (!title) {
+    //   return new Response('No titie provided', {
+    //     status: 500,
+    //   });
+    // }
 
     const heading =
       title.length > 140 ? `${title.substring(0, 140)}...` : title;
@@ -40,10 +40,15 @@ export async function GET(req: NextRequest) {
             <p tw='ml-2 font-bold text-2xl'>FadlanBlog</p>
           </div>
           <div tw='flex flex-col flex-1 py-10'>
-            <div tw='flex text-xl uppercase font-bold tracking-tight font-normal'>
-              BLOG POST
+            {title ? (
+              <div tw='flex text-xl uppercase font-bold tracking-tight font-normal'>
+                BLOG POST
+              </div>
+            ) : null}
+            <div tw='flex text-[80px] font-bold text-[50px]'>
+              {heading ||
+                'Welcome to my blog template. Built using tailwind, shadcn, velite and Nextjs 14.'}
             </div>
-            <div tw='flex text-[80px] font-bold text-[50px]'>{heading}</div>
           </div>
           <div tw='flex items-center w-full justify-between'>
             <div tw='flex text-xl'>{process.env.NEXT_PUBLIC_APP_URL}</div>
