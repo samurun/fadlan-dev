@@ -4,7 +4,7 @@ import './globals.css';
 import Header from '@/components/header';
 import Providers from '@/components/providers';
 import { cn } from '@/lib/utils';
-import Footer from '@/components/footer';
+import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
