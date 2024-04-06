@@ -17,6 +17,12 @@ export default {
         port: '',
         // pathname: '/my-bucket/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
+        port: '',
+        // pathname: '/my-bucket/**',
+      },
     ],
   },
 

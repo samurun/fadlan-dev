@@ -16,3 +16,13 @@ export interface IProject {
   git_url?: string;
   url: string;
 }
+
+export interface INowPlaying {
+  status: number;
+  album: string;
+  albumImageUrl: string;
+  artist: string;
+  isPlaying: boolean;
+  songUrl: string;
+  title: string;
+}
