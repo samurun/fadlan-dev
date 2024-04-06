@@ -11,13 +11,13 @@ export default function Comments() {
       repo='fadlan-dev/fadlan-dev'
       repoId='R_kgDOLonHLA'
       category='Announcements'
-      categoryId='DIC_kwDOLonHLM4CeeIP-hVS'
-      mapping='specific'
+      categoryId='DIC_kwDOLonHLM4CeeIN'
+      mapping='pathname'
       term='Welcome to @giscus/react component!'
       reactionsEnabled='1'
       emitMetadata='0'
       inputPosition='top'
-      theme={theme}
+      theme={theme || 'dark'}
       lang='en'
       loading='lazy'
     />
