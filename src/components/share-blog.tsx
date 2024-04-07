@@ -15,7 +15,10 @@ type ShareBlogProps = {
 
 const ShareBlog = ({ className }: ShareBlogProps) => {
   const pathname = usePathname();
-  const URL = path.join(window.location.origin, pathname);
+  const URL = path.join(
+    typeof window !== 'undefined' ? window.location.origin : '',
+    pathname
+  );
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
