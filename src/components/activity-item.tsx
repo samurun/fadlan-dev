@@ -33,7 +33,7 @@ const ActivityItem = ({
         </div>
         <div className='flex-1'>
           <Link
-            href={path.join('www.strava.com/activities/', String(id))}
+            href={path.join('https://www.strava.com/activities/', String(id))}
             target='_blank'
             className='font-bold hover:underline'
           >
@@ -44,7 +44,7 @@ const ActivityItem = ({
           </p>
         </div>
       </div>
-      <div className='grid grid-cols-4 mt-6'>
+      <div className='grid grid-cols-2 md:grid-cols-4 mt-6 gap-4'>
         <div>
           <p className='text-sm text-muted-foreground'>ระยะทาง</p>
           <p className='font-bold text-lg'>{metersToKilometers(distance)} km</p>
@@ -60,8 +60,10 @@ const ActivityItem = ({
           <p className='font-bold text-lg'>{secondsToTime(moving_time)} </p>
         </div>
         <div>
-          <p className='text-sm text-muted-foreground text-end'>Achievements</p>
-          <p className='font-bold text-lg flex items-center justify-end gap-1'>
+          <p className='text-sm text-muted-foreground text-start md:text-end'>
+            Achievements
+          </p>
+          <p className='font-bold text-lg flex items-center justify-start md:justify-end gap-1'>
             <Icons.achievements />
             {chievement}
           </p>
