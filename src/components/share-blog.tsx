@@ -26,6 +26,10 @@ const ShareBlog = ({ className }: ShareBlogProps) => {
       .writeText(URL)
       .then(() => setCopied(true))
       .catch((error) => console.error('Clipboard failed:', error));
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 3000);
   };
 
   return (
