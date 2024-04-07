@@ -33,7 +33,7 @@ const ActivityItem = ({
         </div>
         <div className='flex-1'>
           <Link
-            href={path.join('https://www.strava.com/activities/', String(id))}
+            href={path.join('www.strava.com/activities/', String(id))}
             target='_blank'
             className='font-bold hover:underline'
           >
