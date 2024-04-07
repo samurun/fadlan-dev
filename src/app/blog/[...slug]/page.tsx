@@ -7,6 +7,7 @@ import { Tag } from '@/components/tag';
 import { formatDate } from '@/lib/utils';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import Comments from '@/components/comments';
+import ShareBlog from '@/components/share-blog';
 
 type Props = {
   params: { slug: string[] };
@@ -88,6 +89,9 @@ const page = async ({ params }: Props) => {
         <hr className='my-4' />
         <MDXContent code={post.body} />
       </article>
+
+      <ShareBlog className='mt-8' />
+
       <div className='mt-14'>
         <Comments />
       </div>
