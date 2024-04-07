@@ -6,9 +6,9 @@ import ActivityItem from './activity-item';
 type LasteActivityProps = {};
 
 const LasteActivity = (props: LasteActivityProps) => {
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isPending, isError } = useQuery({
     queryKey: ['activities'],
-    queryFn: () => fetch('/api/activities').then((res) => res.json()),
+    queryFn: () => fetch('/api/strava/activities').then((res) => res.json()),
   });
 
   if (isError) {
