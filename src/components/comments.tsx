@@ -3,7 +3,7 @@ import Giscus from '@giscus/react';
 import { useTheme } from 'next-themes';
 
 export default function Comments() {
-  const { theme } = useTheme();
+  const { theme, systemTheme } = useTheme();
 
   return (
     <Giscus
@@ -17,7 +17,7 @@ export default function Comments() {
       reactionsEnabled='1'
       emitMetadata='0'
       inputPosition='top'
-      theme={theme || 'dark'}
+      theme={theme === 'system' ? systemTheme : theme}
       lang='en'
       loading='lazy'
     />
