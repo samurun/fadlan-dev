@@ -39,7 +39,7 @@ const ShareBlog = ({ className }: ShareBlogProps) => {
           buttonVariants({ variant: 'secondary', size: 'icon' }),
           'rounded-full'
         )}
-        href={`https://web.facebook.com/sharer/sharer.php?url=${URL}`}
+        href={`https://web.facebook.com/sharer/sharer.php?u=${URL}`}
         target='_blank'
       >
         <Icons.facebook />
