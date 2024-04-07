@@ -1,13 +1,13 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Button, buttonVariants } from './ui/button';
+import { Button } from './ui/button';
 import { CheckIcon, CopyIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
-import { Icons } from './icons';
-import Link from 'next/link';
+
 import { usePathname } from 'next/navigation';
 import path from 'path';
+import { FacebookIcon, FacebookShareButton } from 'react-share';
 
 type ShareBlogProps = {
   className?: string;
@@ -34,16 +34,12 @@ const ShareBlog = ({ className }: ShareBlogProps) => {
 
   return (
     <div className={cn(className, 'flex gap-2')}>
-      <Link
-        className={cn(
-          buttonVariants({ variant: 'secondary', size: 'icon' }),
-          'rounded-full'
-        )}
-        href={`https://web.facebook.com/sharer/sharer.php?u=${URL}`}
-        target='_blank'
+      <FacebookShareButton
+        url={URL}
+        className='Demo__some-network__share-button'
       >
-        <Icons.facebook />
-      </Link>
+        <FacebookIcon size={32} round />
+      </FacebookShareButton>
       <Button
         size='icon'
         className={cn(
