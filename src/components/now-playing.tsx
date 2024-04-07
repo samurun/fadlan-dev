@@ -31,11 +31,11 @@ const NowPlaying = (props: NowPlayingProps) => {
   return (
     <div className='flex flex-col gap-2 py-6 mb-12'>
       <div className='flex items-center gap-1'>
-        <Icons.spotify className='size-8' />
+        <Icons.spotify className='size-6' />
         {nowPlaying?.isPlaying ? (
-          <p className='font-bold'>Now playing</p>
+          <p className='font-bold text-md'>Now playing</p>
         ) : (
-          <p className='text-muted-foreground'>Not playing</p>
+          <p className='font-bold text-md text-muted-foreground'>Not playing</p>
         )}
         — <p className='text-sm text-muted-foreground'>Spotify</p>
       </div>
