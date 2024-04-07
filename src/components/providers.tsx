@@ -1,10 +1,13 @@
+'use client';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from './theme-provider';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 type Props = {
   children: React.ReactNode;
 };
 
+const queryClient = new QueryClient();
 const Providers = ({ children }: Props) => {
   return (
     <ThemeProvider
@@ -13,7 +16,11 @@ const Providers = ({ children }: Props) => {
       enableSystem
       disableTransitionOnChange
     >
-      <TooltipProvider>{children}</TooltipProvider>
+      <TooltipProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      </TooltipProvider>
     </ThemeProvider>
   );
 };
