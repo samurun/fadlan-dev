@@ -6,6 +6,7 @@ import Providers from '@/components/providers';
 import { cn } from '@/lib/utils';
 import Footer from '@/components/Footer';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -42,6 +43,7 @@ export default function RootLayout({
           <main className='container pt-16 min-h-[calc(100dvh-136px)]'>
             {children}
             <Analytics />
+            <SpeedInsights />
           </main>
           <Footer />
         </Providers>
