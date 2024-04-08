@@ -2,6 +2,9 @@
 import { IActivity } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import ActivityItem from './activity-item';
+import Link from 'next/link';
+import { Button } from './ui/button';
+import { ArrowRightIcon } from '@radix-ui/react-icons';
 
 type LasteActivityProps = {};
 
@@ -82,6 +85,11 @@ const LasteActivity = (props: LasteActivityProps) => {
       ) : (
         <p>No yet Activity</p>
       )}
+      <Link href='/activities'>
+        <Button variant='outline' className='mt-16'>
+          View all activitiy <ArrowRightIcon className='ml-2' />
+        </Button>
+      </Link>
     </section>
   );
 };

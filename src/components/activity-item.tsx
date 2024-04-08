@@ -28,7 +28,7 @@ const ActivityItem = ({
   return (
     <article className='p-4 rounded border hover:scale-105 transition-all'>
       <div className='flex items-center gap-2'>
-        <div className='grid place-items-center size-10 rounded-full bg-[#fc5201]'>
+        <div className='grid place-items-center size-10 rounded-full bg-secondary'>
           <Icons.run className=' size-4' />
         </div>
         <div className='flex-1'>
