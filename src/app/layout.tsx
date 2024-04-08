@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Noto_Sans_Thai } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/header';
 import Providers from '@/components/providers';
@@ -8,7 +8,10 @@ import Footer from '@/components/Footer';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const NotoSansThai = Noto_Sans_Thai({
+  subsets: ['thai'],
+  variable: '--font-sans',
+});
 
 export const metadata: Metadata = {
   title: 'Fadlan.dev',
@@ -35,7 +38,7 @@ export default function RootLayout({
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
-          inter.variable
+          NotoSansThai.variable
         )}
       >
         <Providers>
