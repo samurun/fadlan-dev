@@ -33,6 +33,7 @@ const getAccessToken = async (): Promise<SpotifyAccessTokenResponse> => {
       grant_type: 'refresh_token',
       refresh_token,
     }),
+    cache: 'no-cache',
   });
 
   if (!response.ok) {
