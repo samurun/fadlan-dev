@@ -22,7 +22,6 @@ const NowPlaying = (props: NowPlayingProps) => {
         ) : (
           <p className='font-bold text-md text-muted-foreground'>Not playing</p>
         )}
-        — <p className='text-sm text-muted-foreground'>Spotify</p>
       </div>
 
       {data?.isPlaying ? (
@@ -36,14 +35,17 @@ const NowPlaying = (props: NowPlayingProps) => {
             />
           </div>
           <div>
-            <Link
-              href={data.songUrl}
-              target='_blank'
-              className='font-bold hover:underline'
-            >
-              {data.title}
-            </Link>
-            <p className='text-sm text-muted-foreground'>{data.artist}</p>
+            <div className='flex items-center gap-1'>
+              <Image width={14} height={14} src='/images/playing.gif' alt='' />
+              <Link
+                href={data.songUrl}
+                target='_blank'
+                className='font-bold hover:underline'
+              >
+                {data.title}
+              </Link>
+            </div>
+            <p className='text-xs text-muted-foreground'>{data.artist}</p>
           </div>
         </div>
       ) : null}
