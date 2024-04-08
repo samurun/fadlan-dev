@@ -10,6 +10,7 @@ export function cn(...inputs: ClassValue[]) {
 export const formatDate = (input: string | number): string => {
   const date = new Date(input);
   return date.toLocaleDateString('th-TH', {
+    timeZone: 'Asia/Bangkok',
     month: 'short',
     day: 'numeric',
     year: 'numeric',
@@ -19,6 +20,7 @@ export const formatDate = (input: string | number): string => {
 export const formatFullDate = (input: string | number): string => {
   const date = new Date(input);
   const formattedDate = date.toLocaleDateString('th-TH', {
+    timeZone: 'Asia/Bangkok',
     month: 'short',
     day: 'numeric',
     year: 'numeric',
