@@ -25,6 +25,7 @@ const getAccessToken = async (): Promise<StravaAccessTokenResponce> => {
       'Content-Type': 'application/json',
     },
     body,
+    cache: 'no-cache',
   });
 
   return response.json();
