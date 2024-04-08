@@ -10,8 +10,7 @@ async function getActivities() {
   const headersList = headers();
   const pathname = headersList.get('x-forwarded-host') || '';
   const URL = path.join('http://', pathname, '/api/strava/activities');
-  console.log('URL', URL, { next: { revalidate: 3600 } });
-  const res = await fetch(URL);
+  const res = await fetch(URL, { next: { revalidate: 3600 } });
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
