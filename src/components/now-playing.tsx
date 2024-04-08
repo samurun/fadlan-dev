@@ -1,38 +1,23 @@
 'use client';
 
-import { INowPlaying } from '@/types';
-import { useEffect, useState } from 'react';
 import { Icons } from './icons';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
 
 interface NowPlayingProps {}
 
 const NowPlaying = (props: NowPlayingProps) => {
-  const [nowPlaying, setNowPlaying] = useState<INowPlaying | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/now-playing', { cache: 'no-cache' });
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setNowPlaying(data); // Update state with fetched data
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { data } = useQuery({
+    queryKey: ['now-playing'],
+    queryFn: () => fetch('/api/spotify/now-playing').then((res) => res.json()),
+  });
 
   return (
     <div className='flex flex-col gap-2 py-6 mb-12'>
       <div className='flex items-center gap-1'>
         <Icons.spotify className='size-6' />
-        {nowPlaying?.isPlaying ? (
+        {data?.isPlaying ? (
           <p className='font-bold text-md'>Now playing</p>
         ) : (
           <p className='font-bold text-md text-muted-foreground'>Not playing</p>
@@ -40,25 +25,25 @@ const NowPlaying = (props: NowPlayingProps) => {
         — <p className='text-sm text-muted-foreground'>Spotify</p>
       </div>
 
-      {nowPlaying?.isPlaying ? (
+      {data?.isPlaying ? (
         <div className='w-fit flex gap-3 border p-3 rounded-md'>
           <div className='w-11 aspect-square relative rounded overflow-hidden'>
             <Image
-              src={nowPlaying.albumImageUrl}
+              src={data.albumImageUrl}
               width={44}
               height={44}
-              alt={nowPlaying.title}
+              alt={data.title}
             />
           </div>
           <div>
             <Link
-              href={nowPlaying.songUrl}
+              href={data.songUrl}
               target='_blank'
               className='font-bold hover:underline'
             >
-              {nowPlaying.title}
+              {data.title}
             </Link>
-            <p className='text-sm text-muted-foreground'>{nowPlaying.artist}</p>
+            <p className='text-sm text-muted-foreground'>{data.artist}</p>
           </div>
         </div>
       ) : null}
