@@ -26,8 +26,8 @@ export async function generateMetadata() {
       images: [
         {
           url: `/api/og?${ogSearchParams.toString()}`,
-          width: 1200,
-          height: 630,
+               width: 1200,
+        height: 672.1,
           alt: 'fadlan-dev',
         },
       ],

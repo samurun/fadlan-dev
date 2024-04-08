@@ -36,8 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [
         {
           url: `/api/og?${ogSearchParams.toString()}`,
-          width: 1200,
-          height: 630,
+               width: 1200,
+        height: 672.1,
           alt: post.title,
         },
       ],
