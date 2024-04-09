@@ -3,6 +3,7 @@ import { cn, formatDate } from '@/lib/utils';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { buttonVariants } from './ui/button';
 import { Tag } from './tag';
+import BlogViewCounter from './blog-view-counter';
 
 type Props = {
   slug: string;
@@ -13,7 +14,7 @@ type Props = {
 };
 
 const PostItem = ({ slug, title, description, date, tags }: Props) => {
-  console.log(slug);
+  const splitSlugAsParams = slug.split('blog/')[1];
   return (
     <article className='p-4 border rounded-md'>
       <div>
@@ -35,6 +36,8 @@ const PostItem = ({ slug, title, description, date, tags }: Props) => {
           <dd className='text-sm sm:text-base flex items-center gap-2 font-medium'>
             <CalendarIcon />
             <time dateTime={date}>{formatDate(date)}</time>
+            <span className=' px-2'>•</span>
+            <BlogViewCounter slug={splitSlugAsParams} />
           </dd>
         </dl>
         <Link
