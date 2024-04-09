@@ -41,6 +41,6 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  await redis.incr(['pageviews', 'blogs', slug].join(':'));
+  await redis.incr(['blogviews', 'blogs', slug].join(':'));
   return Response.json({ status: 202 });
 }

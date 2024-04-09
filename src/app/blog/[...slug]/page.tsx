@@ -72,10 +72,11 @@ const page = async ({ params }: Props) => {
   if (!post || !post.published) {
     notFound();
   }
+
   return (
     <>
       {process.env.NODE_ENV === 'production' ? (
-        <ReportView slug={post.slug} />
+        <ReportView slug={post.slugAsParams} />
       ) : null}
       <article className='pt-16 prose max-w-3xl dark:prose-invert'>
         <h1 className='text-4xl font-black mb-0'>{post.title}</h1>
