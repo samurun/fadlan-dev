@@ -84,7 +84,7 @@ const page = async ({ params }: Props) => {
           <CalendarIcon />
           <time dateTime={post.date}>{formatDate(post.date)}</time>
           <span className=' px-2'>•</span>
-          <BlogViewCounter slug={post.slug} />
+          <BlogViewCounter slug={post.slugAsParams} />
         </div>
         <div className='flex gap-2 mb-2'>
           {post.tags?.map((tag) => (
