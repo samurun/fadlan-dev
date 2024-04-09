@@ -8,16 +8,14 @@ import { formatDate } from '@/lib/utils';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import Comments from '@/components/comments';
 import ShareBlog from '@/components/share-blog';
-import { Redis } from '@upstash/redis';
 import { ReportView } from './view';
+import BlogViewCounter from '@/components/blog-view-counter';
 
 export const revalidate = 60;
 
 type Props = {
   params: { slug: string[] };
 };
-
-const redis = Redis.fromEnv();
 
 // or Dynamic metadata
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -70,22 +68,22 @@ export async function generateStaticParams(): Promise<Props['params'][]> {
 
 const page = async ({ params }: Props) => {
   const post = await getPostFromParams(params);
-  const views =
-    (await redis.get<number>(['pageviews', 'blogs', params.slug].join(':'))) ??
-    0;
 
   if (!post || !post.published) {
     notFound();
   }
   return (
     <>
-      <ReportView slug={post.slug} />
+      {process.env.NODE_ENV === 'production' ? (
+        <ReportView slug={post.slug} />
+      ) : null}
       <article className='pt-16 prose max-w-3xl dark:prose-invert'>
         <h1 className='text-4xl font-black mb-0'>{post.title}</h1>
         <div className='py-2 text-muted-foreground flex items-center gap-2'>
           <CalendarIcon />
           <time dateTime={post.date}>{formatDate(post.date)}</time>
-          <p className=' pl-2'>{views} views</p>
+          <span className=' px-2'>•</span>
+          <BlogViewCounter slug={post.slug} />
         </div>
         <div className='flex gap-2 mb-2'>
           {post.tags?.map((tag) => (
