@@ -36,7 +36,7 @@ const PostItem = ({ slug, title, description, date, tags }: Props) => {
           <dd className='text-sm sm:text-base flex items-center gap-2 font-medium'>
             <CalendarIcon />
             <time dateTime={date}>{formatDate(date)}</time>
-            <span className=' px-2'>•</span>
+            <span className='px-px sm:px-2'>•</span>
             <BlogViewCounter slug={splitSlugAsParams} />
           </dd>
         </dl>
