@@ -45,7 +45,7 @@ export default function RootLayout({
           <Header />
           <main className='container pt-16 min-h-[calc(100dvh-136px)]'>
             {children}
-            <Analytics />
+            <Analytics mode='production' />
             <SpeedInsights />
           </main>
           <Footer />
