@@ -25,7 +25,7 @@ const NowPlaying = (props: NowPlayingProps) => {
       </div>
 
       {data?.isPlaying ? (
-        <div className='w-fit flex gap-3 border p-3 rounded-md'>
+        <div className='w-fit flex gap-3 border p-3 rounded-lg'>
           <div className='w-11 aspect-square relative rounded overflow-hidden'>
             <Image
               src={data.albumImageUrl}
