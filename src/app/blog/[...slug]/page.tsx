@@ -76,9 +76,9 @@ const page = async ({ params }: Props) => {
     notFound();
   }
 
-  const blogCount = await getBlogView({
-    slug: post.slugAsParams,
-  });
+  // const blogCount = await getBlogView({
+  //   slug: post.slugAsParams,
+  // });
 
   return (
     <>
@@ -90,8 +90,8 @@ const page = async ({ params }: Props) => {
         <div className='py-2 text-muted-foreground flex items-center gap-2'>
           <CalendarIcon />
           <time dateTime={post.date}>{formatDate(post.date)}</time>
-          <span className='px-1'>•</span>
-          <p>{blogCount.view || 0} views</p>
+          {/* <span className='px-1'>•</span>
+          <p>{blogCount.view || 0} views</p> */}
         </div>
         <div className='flex gap-2 mb-2'>
           {post.tags?.map((tag) => (
