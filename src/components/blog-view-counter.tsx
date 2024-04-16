@@ -1,4 +1,3 @@
-'use server';
 import { Redis } from '@upstash/redis';
 import { cn } from '@/lib/utils';
 
