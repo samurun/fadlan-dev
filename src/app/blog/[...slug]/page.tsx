@@ -10,6 +10,7 @@ import Comments from '@/components/comments';
 import ShareBlog from '@/components/share-blog';
 import { ReportView } from './view';
 import { Redis } from '@upstash/redis';
+import getBlogView from '@/services/getBlogView';
 
 const redis = Redis.fromEnv();
 
@@ -75,10 +76,9 @@ const page = async ({ params }: Props) => {
     notFound();
   }
 
-  const viewsCount =
-    (await redis.get<number>(
-      ['blogviews', 'blogs', post.slugAsParams].join(':')
-    )) ?? 0;
+  const blogCount = await getBlogView({
+    slug: post.slugAsParams,
+  });
 
   return (
     <>
@@ -91,7 +91,7 @@ const page = async ({ params }: Props) => {
           <CalendarIcon />
           <time dateTime={post.date}>{formatDate(post.date)}</time>
           <span className='px-1'>•</span>
-          <p>{viewsCount} views</p>
+          <p>{blogCount.view || 0} views</p>
         </div>
         <div className='flex gap-2 mb-2'>
           {post.tags?.map((tag) => (
