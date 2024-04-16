@@ -23,7 +23,7 @@ const page = (props: Props) => {
   return (
     <div className='mt-16'>
       <h1 className='text-3xl font-black'>👋 Hi, how are you?</h1>
-      <article className='mt-10 flex gap-3 flex-col'>
+      <article className='prose dark:prose-invert mt-10 flex gap-3 flex-col'>
         <p>
           I&rsquo;m Fadlan, an experienced Front-end web development with a
           strong passion for crafting customer-centric tech solutions.
@@ -39,12 +39,12 @@ const page = (props: Props) => {
           about staying up-to-date with the latest technologies and trends,
           let&rsquo;s connect! 🤝
         </p>
-        <p>
+        <blockquote>
           Feel free to reach out to discuss how my skills and experience can
-          contribute to your team&rsquo;s success. 😊
-        </p>
+          contribute to your team&rsquo;s success.
+        </blockquote>
       </article>
-      <div className='mt-8 flex gap-4'>
+      <div className='mt-10 flex gap-4'>
         {[
           {
             title: 'Github',
