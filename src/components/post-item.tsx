@@ -3,7 +3,9 @@ import { cn, formatDate } from '@/lib/utils';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { buttonVariants } from './ui/button';
 import { Tag } from './tag';
-import BlogViewCounter from './blog-view-counter';
+import { Redis } from '@upstash/redis';
+
+const redis = Redis.fromEnv();
 
 type Props = {
   slug: string;
@@ -13,8 +15,13 @@ type Props = {
   tags?: Array<string>;
 };
 
-const PostItem = ({ slug, title, description, date, tags }: Props) => {
+const PostItem = async ({ slug, title, description, date, tags }: Props) => {
   const splitSlugAsParams = slug.split('blog/')[1];
+
+  const viewsCount =
+    (await redis.get<number>(
+      ['blogviews', 'blogs', splitSlugAsParams].join(':')
+    )) ?? 0;
   return (
     <article className='p-4 border rounded-md'>
       <div>
@@ -36,8 +43,8 @@ const PostItem = ({ slug, title, description, date, tags }: Props) => {
           <dd className='text-sm sm:text-base flex items-center gap-2 font-medium'>
             <CalendarIcon />
             <time dateTime={date}>{formatDate(date)}</time>
-            <span className='px-px sm:px-2'>•</span>
-            <BlogViewCounter slug={splitSlugAsParams} />
+            <span className='px-px sm:px-1'>•</span>
+            <p>{viewsCount} views</p>
           </dd>
         </dl>
         <Link

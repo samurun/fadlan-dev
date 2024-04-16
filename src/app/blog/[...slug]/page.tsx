@@ -9,7 +9,9 @@ import { CalendarIcon } from '@radix-ui/react-icons';
 import Comments from '@/components/comments';
 import ShareBlog from '@/components/share-blog';
 import { ReportView } from './view';
-import BlogViewCounter from '@/components/blog-view-counter';
+import { Redis } from '@upstash/redis';
+
+const redis = Redis.fromEnv();
 
 export const revalidate = 60;
 
@@ -73,6 +75,11 @@ const page = async ({ params }: Props) => {
     notFound();
   }
 
+  const viewsCount =
+    (await redis.get<number>(
+      ['blogviews', 'blogs', post.slugAsParams].join(':')
+    )) ?? 0;
+
   return (
     <>
       {process.env.NODE_ENV === 'production' ? (
@@ -83,8 +90,8 @@ const page = async ({ params }: Props) => {
         <div className='py-2 text-muted-foreground flex items-center gap-2'>
           <CalendarIcon />
           <time dateTime={post.date}>{formatDate(post.date)}</time>
-          <span className=' px-2'>•</span>
-          <BlogViewCounter slug={post.slugAsParams} />
+          <span className='px-1'>•</span>
+          <p>{viewsCount} views</p>
         </div>
         <div className='flex gap-2 mb-2'>
           {post.tags?.map((tag) => (
