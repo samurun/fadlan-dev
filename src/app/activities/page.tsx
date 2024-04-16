@@ -5,6 +5,7 @@ import ActivityItem from '@/components/activity-item';
 import QueryPagination from '@/components/query-pagination';
 import { sortActivities } from '@/lib/utils';
 import { Metadata } from 'next';
+import { siteConfig } from '@/config/site';
 
 async function getActivities() {
   const headersList = headers();
@@ -29,6 +30,27 @@ type ActivitiesPageProps = {
 export const metadata: Metadata = {
   title: 'Activities | Fadlan',
   description: 'Record everything – runs, hikes',
+  authors: { name: siteConfig.name },
+  openGraph: {
+    title: siteConfig.name,
+    description: siteConfig.description,
+    type: 'article',
+    url: 'https://fadlan-dev.vercel.app/',
+    images: [
+      {
+        url: `/api/og`,
+        width: 1200,
+        height: 672.1,
+        alt: 'fadlan-dev',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [`/api/og`],
+  },
 };
 
 const POSTS_PER_PAGE = 10;

@@ -10,7 +10,7 @@ import Comments from '@/components/comments';
 import ShareBlog from '@/components/share-blog';
 import { ReportView } from './view';
 import { Redis } from '@upstash/redis';
-import getBlogView from '@/services/getBlogView';
+// import getBlogView from '@/services/getBlogView';
 
 const redis = Redis.fromEnv();
 
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: post?.slug,
       images: [
         {
-          url: `/api/og?${ogSearchParams.toString()}`,
+          url: `/api/og/blog?${ogSearchParams.toString()}`,
           width: 1200,
           height: 672.1,
           alt: post.title,

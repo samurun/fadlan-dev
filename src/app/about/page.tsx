@@ -3,6 +3,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { siteConfig } from '@/config/site';
 import {
   EnvelopeClosedIcon,
   GitHubLogoIcon,
@@ -17,6 +18,27 @@ type Props = {};
 export const metadata: Metadata = {
   title: 'About | Fadlan',
   description: 'Information about me',
+  authors: { name: siteConfig.name },
+  openGraph: {
+    title: siteConfig.name,
+    description: siteConfig.description,
+    type: 'article',
+    url: 'https://fadlan-dev.vercel.app/',
+    images: [
+      {
+        url: `/api/og`,
+        width: 1200,
+        height: 672.1,
+        alt: 'fadlan-dev',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [`/api/og`],
+  },
 };
 
 const page = (props: Props) => {
