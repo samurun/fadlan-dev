@@ -27,8 +27,8 @@ const Pre: React.FC<PreProps> = ({ children, ...props }) => {
   const text = getTextFromChildren(children);
 
   return (
-    <pre {...props} className='p-0'>
-      <div className='flex justify-between p-2 bg-background'>
+    <pre {...props} className='p-0 group'>
+      <div className='flex justify-between p-2 bg-[#020817]'>
         <span className='text-muted-foreground'>{lang} </span>
         <CopyButton text={text} />
       </div>
