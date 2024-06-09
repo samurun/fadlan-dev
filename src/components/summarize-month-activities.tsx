@@ -12,8 +12,12 @@ type Props = {};
 
 const SummarizeMonthActivities = async (props: Props) => {
   const activity = await fetch(
-    'http://localhost:3000/api/strava/activities'
+    'https://www.fadl4n.com/api/strava/activities'
   ).then((res) => res.json());
+
+  if (!activity) {
+    return null;
+  }
 
   const summarize = summarizeCurrentMonthActivities(activity.activities);
 
