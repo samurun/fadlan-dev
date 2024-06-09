@@ -1,8 +1,8 @@
 import { posts } from '#site/content';
 import Hero from '@/components/hero';
-import LasteActivity from '@/components/laste-activity';
 import PostItem from '@/components/post-item';
 import ProjectsSection from '@/components/projects-section';
+import SummarizeMonthActivities from '@/components/summarize-month-activities';
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import { sortPosts } from '@/lib/utils';
@@ -67,7 +67,7 @@ export default function Home() {
           </Button>
         </Link>
       </section>
-      <LasteActivity />
+      <SummarizeMonthActivities />
     </div>
   );
 }
