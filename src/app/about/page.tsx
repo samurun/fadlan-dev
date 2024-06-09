@@ -1,9 +1,11 @@
+import { buttonVariants } from '@/components/ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { siteConfig } from '@/config/site';
+import { cn } from '@/lib/utils';
 import {
   EnvelopeClosedIcon,
   GitHubLogoIcon,
@@ -66,6 +68,15 @@ const page = (props: Props) => {
           contribute to your team&rsquo;s success.
         </blockquote>
       </article>
+
+      <div className='mt-8 flex gap-4'>
+        <Link
+          href='/experience'
+          className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}
+        >
+          View my experience
+        </Link>
+      </div>
       <div className='mt-10 flex gap-4'>
         {[
           {

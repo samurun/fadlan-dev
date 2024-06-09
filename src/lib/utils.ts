@@ -25,12 +25,23 @@ export const formatFullDate = (input: string | number): string => {
     day: 'numeric',
     year: 'numeric',
   });
+
   const formattedTime = date.toLocaleTimeString('th-TH', {
     hour: 'numeric',
     minute: 'numeric',
-    hour12: true,
   });
   return `${formattedDate} at ${formattedTime}`;
+};
+
+export const experienceFormatDate = (input: string | number): string => {
+  const date = new Date(input);
+  const formattedDate = date.toLocaleDateString('en-EN', {
+    timeZone: 'Asia/Bangkok',
+    month: 'short',
+    year: 'numeric',
+  });
+
+  return formattedDate;
 };
 
 export function sortPosts(posts: Array<Post>) {
@@ -81,4 +92,57 @@ export function calculatePace(
   const paceSeconds: number = Math.round((paceMinutesPerKm - paceMinutes) * 60);
 
   return `${paceMinutes}:${String(paceSeconds).padStart(2, '0')}`;
+}
+
+export const calculateDuration = (
+  startDate: string | number,
+  endDate: string | number
+): string => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  const monthsDiff =
+    (end.getFullYear() - start.getFullYear()) * 12 +
+    (end.getMonth() - start.getMonth()) +
+    1;
+
+  const years = Math.floor(monthsDiff / 12);
+  const remainingMonths = monthsDiff % 12;
+
+  if (years > 0 && remainingMonths > 0) {
+    return `${years} yr ${remainingMonths} mos`;
+  } else if (years > 0) {
+    return `${years} yr`;
+  } else {
+    return `${monthsDiff} mos`;
+  }
+};
+
+export function summarizeCurrentMonthActivities(activities: IActivity[]): {
+  totalActivities: number;
+  totalDistance: number;
+  totalMovingTime: number;
+} {
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  let totalDistance = 0;
+  let totalMovingTime = 0;
+  let totalActivities = 0;
+
+  for (const activity of activities) {
+    const activityDate = new Date(activity.start_date);
+
+    if (
+      activityDate.getMonth() === currentMonth &&
+      activityDate.getFullYear() === currentYear
+    ) {
+      totalDistance += activity.distance;
+      totalMovingTime += activity.moving_time;
+      totalActivities += 1;
+    }
+  }
+
+  return { totalActivities, totalDistance, totalMovingTime };
 }
