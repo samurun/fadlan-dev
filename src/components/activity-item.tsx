@@ -32,13 +32,13 @@ const ActivityItem = ({
           <Icons.run className=' size-4' />
         </div>
         <div className='flex-1'>
-          <Link
+          <a
             href={path.join('https://www.strava.com/activities/', String(id))}
             target='_blank'
             className='font-bold hover:underline'
           >
             {name}
-          </Link>
+          </a>
           <p className='text-sm text-muted-foreground'>
             {formatFullDate(start_date)}
           </p>
