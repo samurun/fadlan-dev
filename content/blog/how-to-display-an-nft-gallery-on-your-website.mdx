@@ -1,0 +1,412 @@
+---
+title: How to Display an NFT Gallery on Your Website
+description: อยากทำให้เว็บไซต์ดูเจ๋งขึ้นด้วยแกลเลอรี NFT ใช่ไหม? บทความนี้จะสอนวิธีง่ายๆ ในการเพิ่มแกลเลอรี NFT บนเว็บไซต์ของคุณ
+date: 2024-07-15
+tags: ['web', 'nft', 'react']
+published: true
+---
+
+เมื่อไม่นานมานี้ได้มีโอกาสทำโปรเจกต์เกี่ยวกับ Smart contract โดยการเอา NFTs มาแสดงบนเว็ป เลยอยากเอามาแชร์เผื่อมีคนอยากรู้ โดยเครื่องมือจะมีดังนี้
+
+- [Vite](https://vitejs.dev/) ใช้สำหรับสร้างโปรเจกต์และจัดการโครงสร้างไฟล์
+- [Tailwindcss](https://tailwindcss.com/) ใช้สำหรับการจัดการสไตล์ของหน้าเว็บ
+- [TanStack Query](https://tanstack.com/query/latest) สำหรับจัดการการดึงข้อมูลแบบ asynchronous
+- [Viem](https://viem.sh) ใช้ในการเชื่อมต่อและทำงานกับ blockchain
+
+ผมจะข้ามขั้นตอนการ setup นะครับ ส่วนโครงสร้างโฟลเดอร์มีดังนี้:
+
+```/vite-nft-gallery
+ ├── node_modules
+ ├── public
+ └── src
+     ├── assets
+     ├── components
+     │   ├── ui
+     │   ├── providers.tsx
+     │   ├── token-item.tsx
+     │   └── token-list.tsx
+     ├── lib
+     │   ├── BKChain.ts
+     │   ├── BKMainnet.ts
+     │   ├── ticketAbi.ts
+     │   ├── utils.ts
+     │   └── walletAddress.ts
+     ├── pages
+     │   ├── home.tsx
+     │   └── project.tsx
+     └── types
+         └── index.ts
+```
+
+### การตั้งค่าโครงสร้างไฟล์และการเขียนโค้ด
+
+```ts
+//src/lib/BKChain.ts
+import { defineChain } from 'viem';
+
+export const BKChain = defineChain({
+  id: 25925,
+  name: 'Bitkub Mainnet',
+  network: 'Bitkub Mainnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Bitkub Mainnet',
+    symbol: 'tKUB',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://rpc.bitkubchain.io'],
+    },
+    public: {
+      http: ['https://rpc.bitkubchain.io'],
+    },
+  },
+  blockExplorers: {
+    default: { name: 'Explorer', url: 'https://bkcscan.com/' },
+  },
+  contracts: {
+    multicall3: {
+      address: '0x3c238cb1293c039aba3ab0f1840c8330bbd190eb',
+      blockCreated: 13685238,
+    },
+  },
+});
+```
+
+```ts
+//src/lib/BKMainnet.ts
+import { createPublicClient, http } from 'viem';
+import { BKChain } from './BKChain';
+
+export const BKMainnet = createPublicClient({
+  chain: BKChain,
+  transport: http(),
+});
+```
+
+### การกำหนด ABI สำหรับ Smart Contract
+
+```ts
+//src/lib/ticketAbi.ts
+export const ticketAbi = [
+  {
+    type: 'function',
+    name: 'tokenOfOwnerAll',
+    inputs: [{ name: '_owner', type: 'address', internalType: 'address' }],
+    outputs: [{ name: '', type: 'uint256[]', internalType: 'uint256[]' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'balanceOf',
+    inputs: [{ name: 'owner', type: 'address', internalType: 'address' }],
+    outputs: [{ name: '', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'tokenURI',
+    inputs: [{ name: 'id', type: 'uint256', internalType: 'uint256' }],
+    outputs: [{ name: '', type: 'string', internalType: 'string' }],
+    stateMutability: 'view',
+  },
+];
+```
+
+### การกำหนด Interface
+
+```ts
+//src/types/index.ts
+export interface NFTToken {
+  name: string;
+  address: string;
+  image: string;
+  type: string;
+  bit_offset?: number;
+  order: number;
+  disable_transfer?: boolean;
+  available_set_profile?: boolean;
+  nfts?: Nft[];
+}
+
+export interface Nft {
+  name: string;
+  address: string;
+  image: string;
+  type: string;
+  bit_offset: number;
+  order: number;
+  disable_transfer: boolean;
+  available_set_profile: boolean;
+  id: number;
+  project_name: string;
+  nft_name: string;
+  contract_address: string;
+  token_id: string;
+  building_id: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IPFS {
+  name: string;
+  description: string;
+  image: string;
+  thumbnail_image: string;
+  attributes: Attribute[];
+  hashtags: string[];
+}
+
+export interface Attribute {
+  trait_type: string;
+  value: string;
+}
+```
+
+## 1 การแสดงผล NFT tokens
+
+โดย NFT ที่จะนำมาแสดงเอาจาก Bitkub ตามลิงค์นี้:
+
+```url
+https://next-api.bitkubnft.com/api/nft-tokens
+```
+
+การสร้าง Token List Component
+
+```tsx
+//src/components/token-list.tsx
+
+import { ticketAbi } from '@/lib/abis/ticketAbi';
+import { BKMainnet } from '@/lib/BKMainnet';
+import { WALLET_ADDRESS } from '@/lib/walletAddress';
+import { NFTToken } from '@/types';
+import { useQuery } from '@tanstack/react-query';
+import { useCallback, useEffect, useState } from 'react';
+import { Address } from 'viem';
+import { Checkbox } from './ui/checkbox';
+import TokenItem from './token-item';
+import { Button } from './ui/button';
+import SkeletonWrapper from './skeleton-wrapper';
+import { useLocation, useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
+
+type Props = {};
+
+// Function to fetch balance
+export const fetchBalance = async (address: string, walletAddress: string) => {
+  return BKMainnet.readContract({
+    address: address as Address,
+    abi: ticketAbi,
+    functionName: 'balanceOf',
+    args: [walletAddress as Address],
+  });
+};
+
+const NFTList = ({}: Props) => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [balances, setBalances] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const { data: tokens, isLoading: tokenLoading } = useQuery({
+    queryKey: ['nft-tokens'],
+    queryFn: () =>
+      fetch('https://next-api.bitkubnft.com/api/nft-tokens')
+        .then((res) => res.json())
+        .then((res) => res.data as Array<NFTToken>),
+  });
+
+  useEffect(() => {
+    const fetchAllBalances = async () => {
+      setLoading(true);
+      const mappedTokens = tokens?.map((token) => {
+        if (token.nfts) {
+          return token.nfts.map((nft) => nft.address as String);
+        }
+
+        return token.address as String;
+      });
+
+      try {
+        const balancePromises: Promise<void>[] = [];
+
+        mappedTokens?.forEach((token) => {
+          if (Array.isArray(token)) {
+            token.forEach((nestedToken) => {
+              balancePromises.push(
+                fetchBalance(String(nestedToken), WALLET_ADDRESS).then(
+                  (balance) => {
+                    setBalances((prevBalances) => ({
+                      ...prevBalances,
+                      [nestedToken as any]: balance,
+                    }));
+                  }
+                )
+              );
+            });
+          } else {
+            balancePromises.push(
+              fetchBalance(String(token), WALLET_ADDRESS).then((balance) => {
+                setBalances((prevBalances) => ({
+                  ...prevBalances,
+                  [token as any]: balance,
+                }));
+              })
+            );
+          }
+        });
+
+        await Promise.all(balancePromises);
+      } catch (err) {
+        console.error('Error fetching balances:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (tokens) {
+      fetchAllBalances();
+    }
+  }, [tokens]);
+
+  const filteredMyNFTOnly = useCallback(() => {
+    if (searchParams.has('show-nft')) {
+      return tokens?.filter((token) => {
+        const balanceOf =
+          token.type === 'group'
+            ? token.nfts
+                ?.map((nft) => Number(`${balances[nft.address]}` || 0))
+                .reduce((acc, curr) => acc + curr, 0) || 0
+            : Number(`${balances[token.address]}` || 0);
+
+        return balanceOf > 0;
+      });
+    }
+
+    return tokens;
+  }, [tokens, balances, searchParams]);
+
+  return (
+    <div>
+      <section className='flex justify-between'>
+        <h1 className=' font-medium'>NFTs token</h1>
+        <Button>Add Walletaddress</Button>
+      </section>
+      <div className='flex items-center space-x-2 mt-4'>
+        <Checkbox
+          checked={searchParams.has('show-nft')}
+          id='terms'
+          onCheckedChange={() => {
+            const params = new URLSearchParams(searchParams);
+            searchParams.has('show-nft')
+              ? params.delete('show-nft')
+              : params.set('show-nft', 'true');
+            navigate(`${location.pathname}?${params}`);
+          }}
+        />
+        <label
+          htmlFor='terms'
+          className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+        >
+          Show My NFTs Only
+        </label>
+      </div>
+      <div className='space-y-2 mt-4'>
+        {filteredMyNFTOnly()?.map((project) => (
+          <TokenItem
+            key={project.address}
+            address={project.address}
+            name={project.name}
+            image={project.image}
+            type={project.type}
+            nfts={project.nfts}
+            balances={balances}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default NFTList;
+```
+
+การสร้าง Token Item Component
+
+```jsx
+import { Nft } from '@/types';
+
+type Props = {
+  address: string;
+  name: string;
+  image: string;
+  type: string;
+  nfts?: Array<Nft>;
+  balances: Record<string, string>;
+};
+
+const TokenItem = ({ address, name, image, type, nfts, balances }: Props) => {
+  return (
+    <div
+      key={address + name}
+      className='border p-2 rounded flex flex-col gap-2 relative'
+    >
+      <div className='flex gap-2'>
+        <img
+          src={image}
+          className='size-8 object-contain rounded overflow-hidden'
+        />
+        {type === 'group' ? (
+          <p>{name}</p>
+        ) : (
+          <div className='flex items-center'>
+            <a href={`${address}`}>
+              {name}{' '}
+              <span className=' absolute right-4'>{`${
+                balances![address] || 0
+              }`}</span>
+            </a>
+          </div>
+        )}
+        {nfts?.length ? (
+          <p className='text-muted-foreground'>({nfts?.length})</p>
+        ) : null}
+      </div>
+      {nfts?.length ? (
+        <div className='flex flex-col gap-2 pl-4'>
+          {nfts.map((nft) => (
+            <div className='flex gap-2' key={nft.address}>
+              <img
+                src={nft.image}
+                className='size-7 object-contain rounded-md overflow-hidden'
+              />
+              <article className='flex items-center'>
+                <a href={`${nft.address}`}>
+                  {nft.name}{' '}
+                  <span className=' absolute right-4'>{`${
+                    balances![nft.address] || 0
+                  }`}</span>
+                </a>
+              </article>
+            </div>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+export default TokenItem;
+```
+
+แค่นี้เราก็ได้ NFT Tokens list แล้ว
+
+<Image
+  width='768'
+  height='100'
+  src='/images/display-nft-on-website/nft-token-list.png'
+  alt=''
+/>
+
+## !!เดี๋ยวมาเขียนต่อครับ!!
