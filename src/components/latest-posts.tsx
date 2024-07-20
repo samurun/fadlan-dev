@@ -28,7 +28,7 @@ const LatestPosts = async (props: Props) => {
           </li>
         ))}
       </ul>
-      <Link href='/blog'>
+      <Link href='/posts'>
         <Button variant='outline' className='mt-16'>
           View all blog <ArrowRightIcon className='ml-2' />
         </Button>

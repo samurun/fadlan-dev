@@ -1,8 +1,6 @@
 import Link from 'next/link';
-import path from 'path';
 import { Button } from './ui/button';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
-import Image from 'next/image';
 import projects from '@/constants/projects.json';
 import ProjectItem from './project-item';
 
@@ -10,12 +8,12 @@ type Props = {};
 
 const PROJECTS_PER_PAGE = 2;
 
-const ProjectsSection = (props: Props) => {
+const LatestProjects = (props: Props) => {
   const lasteProjects = projects.slice(0, PROJECTS_PER_PAGE);
   return (
     <section className='py-24'>
       <Link href='/projects'>
-        <h2 className='text-3xl font-black'>Projects</h2>
+        <h2 className='text-3xl font-black'>Latest Projects</h2>
       </Link>
       <ul className='grid grid-cols-1 md:grid-cols-2 gap-8 mt-16'>
         {lasteProjects.map((project, idx: number) => (
@@ -39,4 +37,4 @@ const ProjectsSection = (props: Props) => {
   );
 };
 
-export default ProjectsSection;
+export default LatestProjects;

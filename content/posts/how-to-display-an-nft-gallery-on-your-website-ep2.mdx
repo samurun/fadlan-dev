@@ -1,0 +1,96 @@
+---
+title: How to Display an NFT Gallery on Your Website (2/2)
+description: อยากทำให้เว็บไซต์ดูเจ๋งขึ้นด้วยแกลเลอรี NFT ใช่ไหม? บทความนี้จะสอนวิธีง่ายๆ ในการเพิ่มแกลเลอรี NFT บนเว็บไซต์ของคุณ
+date: 2024-07-15
+tags: ['web', 'nft', 'react']
+published: true
+---
+
+ใน ep ที่ 2 นี้ เราจะมาต่อยอดจากสิ่งที่ได้ทำไปใน ep ที่ 1 ด้วยการเพิ่มฟังก์ชันการค้นหาและการจัดการ NFT
+
+### การตั้งค่าเชื่อมต่อ Blockchain
+
+ในส่วนนี้เราจะเพิ่มการตั้งค่าไฟล์เพื่อเชื่อมต่อกับ blockchain โดยใช้ Viem
+
+#### การประกาศ BKChain.ts
+
+```typescript
+// src/lib/BKChain.ts
+
+import { defineChain } from 'viem';
+
+export const BKChain = defineChain({
+  id: 25925,
+  name: 'Bitkub Mainnet',
+  network: 'Bitkub Mainnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Bitkub Mainnet',
+    symbol: 'tKUB',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://rpc.bitkubchain.io'],
+    },
+    public: {
+      http: ['https://rpc.bitkubchain.io'],
+    },
+  },
+  blockExplorers: {
+    default: { name: 'Explorer', url: 'https://bkcscan.com/' },
+  },
+  contracts: {
+    multicall3: {
+      address: '0x3c238cb1293c039aba3ab0f1840c8330bbd190eb',
+      blockCreated: 13685238,
+    },
+  },
+});
+```
+
+#### การประกาศ BKMainnet.ts
+
+```typescript
+// src/lib/BKMainnet.ts
+
+import { createPublicClient, http } from 'viem';
+import { BKChain } from './BKChain';
+
+export const BKMainnet = createPublicClient({
+  chain: BKChain,
+  transport: http(),
+});
+```
+
+#### การประกาศ ticketAbi.ts
+
+```typescript
+export const ticketAbi = [
+  {
+    type: 'function',
+    name: 'tokenOfOwnerAll',
+    inputs: [{ name: '_owner', type: 'address', internalType: 'address' }],
+    outputs: [{ name: '', type: 'uint256[]', internalType: 'uint256[]' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'balanceOf',
+    inputs: [{ name: 'owner', type: 'address', internalType: 'address' }],
+    outputs: [{ name: '', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'tokenURI',
+    inputs: [{ name: 'id', type: 'uint256', internalType: 'uint256' }],
+    outputs: [{ name: '', type: 'string', internalType: 'string' }],
+    stateMutability: 'view',
+  },
+];
+```
+
+
+<blockquote>
+  หวังว่าบทความนี้จะเป็นประโยชน์สำหรับการสร้างโปรเจกต์แกลเลอรี NFT ของคุณ
+</blockquote>

@@ -2,7 +2,6 @@ import { defineCollection, defineConfig, s } from 'velite';
 import rehypeSlug from 'rehype-slug';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import { visit } from 'unist-util-visit';
 
 const computedFields = <T extends { slug: string }>(data: T) => ({
   ...data,
@@ -11,7 +10,7 @@ const computedFields = <T extends { slug: string }>(data: T) => ({
 
 const posts = defineCollection({
   name: 'Post',
-  pattern: 'blog/**/*.mdx',
+  pattern: 'posts/**/*.mdx',
   schema: s
     .object({
       slug: s.path(),
@@ -37,17 +36,6 @@ export default defineConfig({
   collections: { posts },
   mdx: {
     rehypePlugins: [
-      // () => (tree) => {
-      //   visit(tree, (node) => {
-      //     if (node?.type === 'element' && node?.tagName === 'pre') {
-      //       const [codeEl] = node.children;
-
-      //       if (codeEl.tagName !== 'code') return;
-
-      //       node.raw = codeEl.children?.[0].value;
-      //     }
-      //   });
-      // },
       rehypeSlug,
       [rehypePrettyCode, { theme: 'github-dark-dimmed' }],
       [

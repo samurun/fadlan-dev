@@ -16,7 +16,7 @@ type Props = {
 };
 
 const PostItem = async ({ slug, title, description, date, tags }: Props) => {
-  const splitSlugAsParams = slug.split('blog/')[1];
+  const splitSlugAsParams = slug.split('posts/')[1];
 
   const viewsCount =
     (await redis.get<number>(
