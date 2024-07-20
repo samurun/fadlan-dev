@@ -1,18 +1,26 @@
 'use client';
 
-import {
-  HomeIcon,
-  PersonIcon,
-  ReaderIcon,
-  RocketIcon,
-} from '@radix-ui/react-icons';
 import Link from 'next/link';
 import ThemeToggle from './theme-toggle';
-import { buttonVariants } from './ui/button';
-import { cn } from '@/lib/utils';
+
 import { Icons } from './icons';
 
 type Props = {};
+
+const MENU_ITEMS = [
+  {
+    key: 'projects',
+    label: 'Project',
+  },
+  {
+    key: 'posts',
+    label: 'Blog',
+  },
+  {
+    key: 'about',
+    label: 'About',
+  },
+];
 
 const Header = (props: Props) => {
   return (
@@ -23,33 +31,17 @@ const Header = (props: Props) => {
           className='text-lg font-bold flex items-center space-x-2'
         >
           <Icons.logo className='h-6 w-6' />
-          <span className='font-bold'>Fadlan blog</span>
+          <span className='font-bold'>Fadl4n</span>
         </Link>
-        <div className='flex items-center'>
-          <Link
-            href='/'
-            className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
-          >
-            <HomeIcon />
-          </Link>
-          <Link
-            href='/projects'
-            className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
-          >
-            <RocketIcon />
-          </Link>
-          <Link
-            href='/blog'
-            className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
-          >
-            <ReaderIcon />
-          </Link>
-          <Link
-            href='/about'
-            className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
-          >
-            <PersonIcon />
-          </Link>
+        <div className='flex items-center gap-2'>
+          {MENU_ITEMS.map((menu) => (
+            <Link
+              href={menu.key}
+              className='text-muted-foreground transition-colors hover:text-foreground text-sm'
+            >
+              {menu.label}
+            </Link>
+          ))}
           <ThemeToggle />
         </div>
       </div>
