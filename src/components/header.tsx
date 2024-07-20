@@ -36,6 +36,7 @@ const Header = (props: Props) => {
         <div className='flex items-center gap-2'>
           {MENU_ITEMS.map((menu) => (
             <Link
+              key={menu.key}
               href={menu.key}
               className='text-muted-foreground transition-colors hover:text-foreground text-sm'
             >
