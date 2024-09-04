@@ -14,7 +14,7 @@ const EXPERIENCES = [
     location: 'bangkok',
     location_type: 'remote',
     start_date: 'Mar 2024',
-    end_date: null,
+    end_date: 'Aug 2024',
     desc: '',
     stacks: ['react', 'vite', 'nextjs', 'typescript', 'tailwindcss', 'leaflet'],
   },
