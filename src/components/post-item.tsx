@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { cn, formatDate } from '@/lib/utils';
-import { CalendarIcon } from '@radix-ui/react-icons';
-import { buttonVariants } from './ui/button';
+import { formatDate } from '@/lib/utils';
+import { CalendarIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { Tag } from './tag';
 import { Redis } from '@upstash/redis';
+import path from 'path';
 
 const redis = Redis.fromEnv();
 
@@ -23,38 +23,38 @@ const PostItem = async ({ slug, title, description, date, tags }: Props) => {
       ['blogviews', 'blogs', splitSlugAsParams].join(':')
     )) ?? 0;
   return (
-    <article className='p-4 border rounded-md'>
-      <div>
-        <h2 className='text-2xl font-bold'>
-          <Link href={'/' + slug}>{title}</Link>
-        </h2>
-      </div>
-      <div className='flex gap-2 py-1'>
-        {tags?.map((tag) => (
-          <Tag tag={tag} key={tag} />
-        ))}
-      </div>
-      <div className='max-w-none text-muted-foreground'>
-        <p>{description}</p>
-      </div>
-      <div className='flex items-center justify-between mt-2'>
-        <dl>
-          <dt className='sr-only'>Published on</dt>
-          <dd className='text-sm sm:text-base flex items-center gap-2 font-medium'>
-            <CalendarIcon />
+    <div className='group relative overflow-hidden rounded-lg bg-background border'>
+      <Link
+        href={path.join('/', slug)}
+        className='absolute inset-0 z-10'
+        prefetch={false}
+      >
+        <span className='sr-only'>Read more</span>
+      </Link>
+      <div className='p-4 md:p-6'>
+        <div className='mb-2 flex items-center gap-2 text-xs text-muted-foreground'>
+          <div className='flex items-center gap-1'>
+            <CalendarIcon className='h-4 w-4' />
             <time dateTime={date}>{formatDate(date)}</time>
-            <span className='px-px sm:px-1'>•</span>
-            <p>{viewsCount} views</p>
-          </dd>
-        </dl>
-        <Link
-          href={'/' + slug}
-          className={cn(buttonVariants({ variant: 'link' }))}
-        >
-          Read more →
-        </Link>
+          </div>
+          <div className='flex items-center gap-1'>
+            <EyeOpenIcon className='h-4 w-4' />
+            <span>{viewsCount} views</span>
+          </div>
+        </div>
+        <div className='flex flex-wrap gap-2'>
+          {tags?.map((tag) => (
+            <Tag tag={tag} key={tag} />
+          ))}
+        </div>
+        <h3 className='mb-2 text-lg font-bold group-hover:text-primary'>
+          {title}
+        </h3>
+        <p className='text-sm text-muted-foreground line-clamp-3'>
+          {description}
+        </p>
       </div>
-    </article>
+    </div>
   );
 };
 
