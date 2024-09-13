@@ -1,5 +1,42 @@
 [
   {
+    "name": "XRB Land Manager ",
+    "image": "/images/xrb-land-manager.png",
+    "desc": "ผู้เชี่ยวชาญเส้นทางมัลดีฟส์ บริการให้คำปรึกษาและแนะนำรีสอร์มัลดีฟที่เหมาะกับคุณ",
+    "stacks": [
+      "nextjs",
+      "next-auth",
+      "typescript",
+      "zod",
+      "shadcn/ui",
+      "leaflet",
+      "proj4",
+      "@tanstack/react-query",
+      "bitkubnext",
+      "bitkubchain"
+    ],
+    "git_url": "",
+    "url": "https://xrb-farm.vercel.app/farm"
+  },
+  {
+    "name": "XRB Farm",
+    "image": "/images/farm.png",
+    "desc": "ผู้เชี่ยวชาญเส้นทางมัลดีฟส์ บริการให้คำปรึกษาและแนะนำรีสอร์มัลดีฟที่เหมาะกับคุณ",
+    "stacks": [
+      "react",
+      "typescript",
+      "vite",
+      "zod",
+      "shadcn/ui",
+      "bitkubnext",
+      "bitkubchain",
+      "@tanstack/react-query",
+      "vitest"
+    ],
+    "git_url": "",
+    "url": "https://xrb-farm.vercel.app/farm"
+  },
+  {
     "name": "Net Zero Man",
     "image": "/images/net-zero-man.png",
     "desc": "ผู้เชี่ยวชาญเส้นทางมัลดีฟส์ บริการให้คำปรึกษาและแนะนำรีสอร์มัลดีฟที่เหมาะกับคุณ",
