@@ -1,6 +1,6 @@
 import { ArrowRightIcon } from '@radix-ui/react-icons';
 import { Button } from './ui/button';
-import { Card, CardHeader, CardTitle } from './ui/card';
+import { Card, CardHeader } from './ui/card';
 import {
   metersToKilometers,
   secondsToTime,
@@ -23,12 +23,11 @@ const SummarizeMonthActivities = async (props: Props) => {
 
   return (
     <div>
-      <h2 className='text-3xl font-black'>Summarize Activities</h2>
+      <h2 className='text-3xl font-black'>
+        This {new Date().toLocaleDateString('default', { month: 'long' })}
+      </h2>
       <Card className='mt-8'>
         <CardHeader>
-          <CardTitle className=' capitalize'>
-            This {new Date().toLocaleDateString('default', { month: 'long' })}
-          </CardTitle>
           <div className='flex justify-between'>
             <div>
               <label className='text-muted-foreground'>Total Activities</label>
