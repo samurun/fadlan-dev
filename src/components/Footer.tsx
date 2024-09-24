@@ -6,6 +6,7 @@ import {
 import NowPlaying from './now-playing';
 import { buttonVariants } from './ui/button';
 import { cn } from '@/lib/utils';
+import { siteConfig } from '@/config/site';
 
 type Props = {};
 
@@ -39,7 +40,7 @@ const Footer = (props: Props) => {
               <LinkedInLogoIcon />
             </a>
             <a
-              href='https://github.com/fadlan-dev'
+              href={siteConfig.links.github}
               target='_blank'
               className={cn(
                 buttonVariants({ variant: 'ghost', size: 'icon' }),

@@ -3,6 +3,7 @@ import React from 'react';
 import { buttonVariants } from './ui/button';
 import { cn } from '@/lib/utils';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
+import { siteConfig } from '@/config/site';
 
 type Props = {};
 
@@ -25,7 +26,7 @@ const Hero = (props: Props) => {
             View my blog
           </Link>
           <Link
-            href={String(process.env.NEXT_PUBLIC_GITHUB_URL)}
+            href={siteConfig.links.github}
             target='_blank'
             rel='noreferrer'
             className={cn(
