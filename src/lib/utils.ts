@@ -27,6 +27,7 @@ export const formatFullDate = (input: string | number): string => {
   });
 
   const formattedTime = date.toLocaleTimeString('th-TH', {
+    timeZone: 'Asia/Bangkok',
     hour: 'numeric',
     minute: 'numeric',
   });
